@@ -8,6 +8,14 @@ require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+app.get('/test', (req, res) => {
+  res.send('✅ FlameGate test route reached.');
+});
 
 
 // Twilio client setup
