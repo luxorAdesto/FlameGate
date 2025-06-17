@@ -69,8 +69,16 @@ app.post('/check-verification', (req, res) => {
   else return res.status(401).send({ success: false, message: 'Code mismatch' });
 });
 
+app.get('/', (req, res) => {
+  res.send('🔥 FlameGate is running');
+});
+
+app.get('/test', (req, res) => {
+  res.send('✅ FlameGate test route is working');
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`FlameGate listening on port ${PORT}`);
-});
+  console.log(`🔥 FlameGate is listening on port ${PORT}`);
+
