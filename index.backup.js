@@ -58,32 +58,6 @@ app.post('/start-verification', async (req, res) => {
   }
 });
 
-// 🔥 SEND VERIFICATION CODE
-app.post('/send', async (req, res) => {
-  const { phone } = req.body;
-  if (!phone) return res.status(400).send({ error: 'Phone number required' });
-
-
-  const code = Math.floor(100000 + Math.random() * 900000).tgitoString();
-  verifications[phone] = code;
-
-
-  try {
-    console.log(`Sending code ${code} to ${phone}`);
-    await client.messages.create({
-      body: `Your verification code is: ${code}`,
-      from: process.env.TWILIO_PHONE_NUMBER, // this must be set in your .env
-      to: phone,
-    });
-
-
-    res.status(200).send({ message: 'Verification code sent' });
-  } catch (err) {
-    console.error("SMS Failed:", err.message);
-    res.status(500).send({ error: 'Failed to send SMS', details: err.message });
-  }
-});
-
 
 app.post('/check-verification', (req, res) => {
   const { phone, code } = req.body;
@@ -95,16 +69,8 @@ app.post('/check-verification', (req, res) => {
   else return res.status(401).send({ success: false, message: 'Code mismatch' });
 });
 
-app.get('/', (req, res) => {
-  res.send('🔥 FlameGate is running');
-});
-
-app.get('/test', (req, res) => {
-  res.send('✅ FlameGate test route is working');
-});
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🔥 FlameGate is listening on port ${PORT}`);
+  console.log(`FlameGate listening on port ${PORT}`);
 });
