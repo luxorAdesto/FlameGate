@@ -58,6 +58,7 @@ app.post('/check-verification', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🔥 FlameGate is LIVE on port ${PORT}`);
+  console.log(`FlameGate listening on port ${PORT}`);
 });
