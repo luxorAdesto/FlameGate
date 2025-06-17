@@ -16,6 +16,9 @@ app.use((req, res, next) => {
 app.get('/test', (req, res) => {
   res.send('✅ FlameGate test route reached.');
 });
+app.get('/', (req, res) => {
+  res.send('🔥 FlameGate server is up!');
+});
 
 
 // Twilio client setup
