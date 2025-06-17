@@ -45,5 +45,19 @@ app.post('/check', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('🔥 FlameGate is running');
+});
 
-app.listen(3000, () => console.log('🔥 FlameBridge active on port 3000'));
+app.get('/test', (req, res) => {
+  res.send('✅ FlameGate test route is working');
+});
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🔥 FlameGate is listening on port ${PORT}`);
+});
+
+
+
