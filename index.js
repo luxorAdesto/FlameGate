@@ -22,7 +22,11 @@ app.get('/', (req, res) => {
 
 
 // Twilio client setup
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const verifySid = process.env.VERIFY_SID;
+const client = twilio(accountSid, authToken);
+
 
 
 // Temporary in-memory code storage
