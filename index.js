@@ -65,26 +65,25 @@ app.post('/send', async (req, res) => {
 
 
   const code = Math.floor(100000 + Math.random() * 900000).toString();
-verifications[phone] = code;
+  verifications[phone] = code;
 
 
-try {
-  console.log(`Sending code ${code} to ${phone}`);
+  try {
+    console.log(`Sending code ${code} to ${phone}`);
+    await client.messages.create({
+      body: `Your verification code is: ${code}`,
+      from: process.env.TWILIO_PHONE_NUMBER, // This must be set in your .env
+      to: phone,
+    });
 
 
-  await client.messages.create({
-    body: `Your verification code is: ${code}`,
-    from: process.env.TWILIO_PHONE_NUMBER, // This must be set in your .env
-    to: phone,
-  });
+    res.status(200).send({ message: 'Verification code sent' });
+  } catch (err) {
+    console.error("SMS Failed:", err.message);
+    res.status(500).send({ error: 'Failed to send SMS', details: err.message });
+  }
+});
 
-
-  res.status(200).send({ message: 'Verification code sent' });
-} catch (err) {
-  console.error("SMS Failed:", err.message);
-  res.status(500).send({ error: 'Failed to send SMS', details: err.message });
-}
-  
 app.post('/check-verification', (req, res) => {
   const { phone, code } = req.body;
   const stored = verifications[phone];
