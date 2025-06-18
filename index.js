@@ -26,11 +26,7 @@ app.post('/start-verification', async (req, res) => {
   const { phone } = req.body;
   if (!phone) return res.status(400).send({ error: 'Phone number required' });
 
-
-  const code = Math.floor(100000 + Math.random() * 900000).toString();
-  verifications[phone] = code;
-
-
+  
 // 🔥 SEND VERIFICATION CODE
 
   const code = Math.floor(100000 + Math.random() * 900000).toString();
