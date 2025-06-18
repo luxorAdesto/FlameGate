@@ -21,11 +21,7 @@ app.get('/', (req, res) => {
 });
 
 
-// Twilio client setup
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const verifySid = process.env.VERIFY_SID;
-const client = twilio(accountSid, authToken);
+
 
 
 
@@ -42,15 +38,6 @@ app.post('/start-verification', async (req, res) => {
   verifications[phone] = code;
 
 
-  try {
-    console.log(`Sending code ${code} to ${phone}`);
-    await client.messages.create({
-      body: `Your FlameGate verification code is: ${code}`,
-      from: process.env.TWILIO_PHONE_NUMBER, // Add this to your .env
-      to: phone
-    });
-
-
     res.status(200).send({ message: 'Verification code sent' });
   } catch (err) {
     console.error("SMS Failed:", err.message);
@@ -59,9 +46,6 @@ app.post('/start-verification', async (req, res) => {
 });
 
 // 🔥 SEND VERIFICATION CODE
-app.post('/send', async (req, res) => {
-  const { phone } = req.body;
-  if (!phone) return res.status(400).send({ error: 'Phone number required' });
 
 
   const code = Math.floor(100000 + Math.random() * 900000).toString();
