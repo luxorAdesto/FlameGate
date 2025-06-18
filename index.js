@@ -31,11 +31,6 @@ app.post('/start-verification', async (req, res) => {
   verifications[phone] = code;
 
 
-  console.log(`Code ${code} stored for ${phone}`);
-  res.status(200).send({ message: 'Verification code stored (no SMS sent)' });
-});
-
-
 // 🔥 SEND VERIFICATION CODE
 
   const code = Math.floor(100000 + Math.random() * 900000).toString();
