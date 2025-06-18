@@ -36,9 +36,7 @@ console.log(`Code ${code} stored for ${phone}`);
 res.status(200).send({ message: 'Verification code stored (no SMS sent)' });
 
 console.error("SMS Failed:", err.message);
-    res.status(500).send({ error: 'Failed to send SMS', details: err.message });
-  }
-});
+res.status(500).send({ error: 'Failed to send SMS', details: err.message });
 
 app.post('/check-verification', (req, res) => {
   const { phone, code } = req.body;
